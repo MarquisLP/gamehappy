@@ -59,3 +59,25 @@ class Graphic(object):
         """
         self._rect.x += int(round(dx))
         self._rect.y += int(round(dy))
+
+    def set_position(self, new_x=None, new_y=None):
+        """Re-position the Graphic onto an exact location relative to
+        its destination.
+
+        It is safe to pass floats as arguments to this method; they will
+        automatically be rounded to the nearest whole number.
+
+        Args:
+            new_x (int): The x-coordinate of the top-left corner for the
+                Graphic's new position.
+                This parameter is optional; you can omit it from the
+                function call if you want to retain the Graphic's
+                x-position.
+            new_y (int): The y-coordinate of the top-left corner for the
+                Graphic's new position.
+                This parameter is optional; you can omit it from the
+                function call if you want to retain the Graphic's
+                y-position.
+        """
+        self._rect.x = int(round(new_x))
+        self._rect.y = int(round(new_y))
