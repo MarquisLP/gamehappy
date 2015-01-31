@@ -81,3 +81,18 @@ class Graphic(object):
         """
         self._rect.x = int(round(new_x))
         self._rect.y = int(round(new_y))
+
+    def is_contained(self):
+        """Return a Boolean indicating whether the entire image is
+        within the bounds of its destination.
+
+        For example, if this Graphic's destination is the Surface
+        representing the screen, this method will return True if every
+        pixel of the image is on-screen.
+        """
+        bounds = Rect(0, 0, self._destination.get_width(),
+                      self._destination.get_height())
+        if bounds.contains(self._rect):
+            return True
+        else:
+            return False
