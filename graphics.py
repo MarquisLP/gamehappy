@@ -39,3 +39,23 @@ class Graphic(object):
         self._image = source
         self._rect = Rect(x, y, source.get_width(), source.get_height())
         self._destination = destination
+
+    def move(self, dx=0, dy=0):
+        """Move the Graphic a set horizontal and/or vertical distance in
+        pixels.
+
+        It is safe to pass floats as arguments to this method; they will
+        automatically be rounded to the nearest whole number.
+
+        Args:
+            dx (int): The horizontal distance to travel. A positive
+                value will move the Graphic to the right, while a
+                negative value will move it to the left.
+                Defaults to 0.
+            dy (int): The vertical distance to travel. A positive value
+                will move the Graphic down, while a negative value will
+                move it up.
+                Defaults to 0.
+        """
+        self._rect.x += int(round(dx))
+        self._rect.y += int(round(dy))
