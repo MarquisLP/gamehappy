@@ -114,3 +114,9 @@ class Graphic(object):
             return True
         else:
             return False
+
+    def get_width(self):
+        return self._rect.width
+
+    def get_height(self):
+        return self._rect.height
