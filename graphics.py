@@ -96,3 +96,21 @@ class Graphic(object):
             return True
         else:
             return False
+
+    def is_outside(self):
+        """Return a Boolean indicating whether the entire image is out
+        of the bounds of its destination.
+
+        For example, if this Graphic's destination is the Surface
+        representing the screen, this method will return True if all
+        pixels in the image are off-screen.
+        """
+        right_bound = self._destination.get_width()
+        bottom_bound = self._destination.get_height()
+        if ((self._rect.x + self._rect.width < 0) or
+                (self._rect.x > right_bound) or
+                (self._rect.y + self._rect.height < 0) or
+                (self._rect.y > bottom_bound)):
+            return True
+        else:
+            return False
