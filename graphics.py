@@ -1,12 +1,12 @@
 """This module contains classes for representing in-game images as they
 are drawn on-screen.
 """
-from enum import Enum
+from enum import IntEnum
 from pygame.surface import Surface
 from pygame.rect import Rect
 
 
-class Axis(Enum):
+class Axis(IntEnum):
     """Contains int representations of the possible 2D axes."""
     horizontal = 1
     vertical = 2
