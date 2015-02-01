@@ -191,3 +191,18 @@ class Graphic(object):
         resized_image = pygame.transform.scale(self._image,
             (new_width, new_height))
         self._image = resized_image
+
+    def opacify(self, amount):
+        """Increase or decrease the image's transparency.
+
+        Note that Graphic images always start with an opacity of 255,
+        which is fully opaque.
+
+        Args:
+            amount (int): How much to add to the image's opacity value.
+                Positive values will make the image more opaque, while
+                negative values will make it more transparent.
+                To make the image fully opaque, pass 255 or more. To
+                make the image fully transparent, pass -255 or less.
+        """
+        self._image.set_alpha(amount)
