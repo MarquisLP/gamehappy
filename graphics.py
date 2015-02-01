@@ -170,13 +170,14 @@ class Graphic(object):
         width and height.
 
         Args:
-            zoom (int): The amount used to multiply the image's
+            zoom (float): The amount used to multiply the image's
                 dimensions. For example, passing a value of 2 when the
                 image's dimensions are 24x24 will enlarge the image to
-                48x48.
+                48x48. Passing 0.5 will shrink it to 12x12.
         """
         magnified_image = pygame.transform.scale(self._image,
-            (self.get_width() * zoom, self.get_height() * zoom))
+            (int(round(self.get_width() * zoom)),
+             int(round(self.get_height() * zoom))))
         self._image = magnified_image
         self._update_rect_dimensions()
 
@@ -190,7 +191,7 @@ class Graphic(object):
                 stretch to fit.
         """
         resized_image = pygame.transform.scale(self._image,
-            (new_width, new_height))
+            (int(round(new_width)), int(round(new_height))))
         self._image = resized_image
         self._update_rect_dimensions()
 
