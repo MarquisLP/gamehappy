@@ -86,8 +86,10 @@ class Graphic(object):
                 function call if you want to retain the Graphic's
                 y-position.
         """
-        self._rect.x = int(round(new_x))
-        self._rect.y = int(round(new_y))
+        if new_x is not None:
+            self._rect.x = int(round(new_x))
+        if new_y is not None:
+            self._rect.y = int(round(new_y))
 
     def get_width(self):
         return self._rect.width
