@@ -126,3 +126,24 @@ class Graphic(object):
 
     def get_height(self):
         return self._rect.height
+
+    def center(self, axis):
+        """Center the image horizontally and/or vertically on its
+        destination.
+
+        Args:
+            axis (Axis): A literal from the Axis enum for specifying
+                whether the image should be centered on the horizontal
+                or vertical plane.
+                To center the image on both planes, you can combine both
+                values using the | (bitwise or) operator.
+        """
+        if (axis & Axis.horizontal) == Axis.horizontal:
+            full_space = self._destination.get_width()
+            centered_x = (full_space - self.get_width()) / 2
+            self.set_position(new_x=centered_x)
+
+        if (axis & Axis.vertical) == Axis.vertical:
+            full_space = self._destination.get_height()
+            centered_y = (full_space - self.get_height()) / 2
+            self.set_position(new_y=centered_y)
