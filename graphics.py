@@ -96,8 +96,8 @@ class Graphic(object):
         representing the screen, this method will return True if every
         pixel of the image is on-screen.
         """
-        bounds = Rect(0, 0, self._destination.get_width(),
-                      self._destination.get_height())
+        bounds = Rect(0, 0, self.destination_width(),
+            self.destination_height())
         if bounds.contains(self._rect):
             return True
         else:
@@ -111,12 +111,10 @@ class Graphic(object):
         representing the screen, this method will return True if all
         pixels in the image are off-screen.
         """
-        right_bound = self._destination.get_width()
-        bottom_bound = self._destination.get_height()
-        if ((self._rect.x + self._rect.width < 0) or
-                (self._rect.x > right_bound) or
-                (self._rect.y + self._rect.height < 0) or
-                (self._rect.y > bottom_bound)):
+        if ((self._rect.x + self.get_width() < 0) or
+                (self._rect.x > self.destination_width()) or
+                (self._rect.y + self.get_height() < 0) or
+                (self._rect.y > self.destination_height())):
             return True
         else:
             return False
@@ -126,6 +124,12 @@ class Graphic(object):
 
     def get_height(self):
         return self._rect.height
+
+    def destination_width(self):
+        return self._destination.get_width()
+
+    def destination_height(self):
+        return self._destination.get_height()
 
     def center(self, axis):
         """Center the image horizontally and/or vertically on its
@@ -139,11 +143,9 @@ class Graphic(object):
                 values using the | (bitwise or) operator.
         """
         if (axis & Axis.horizontal) == Axis.horizontal:
-            full_space = self._destination.get_width()
-            centered_x = (full_space - self.get_width()) / 2
+            centered_x = (self.destination_width() - self.get_width()) / 2
             self.set_position(new_x=centered_x)
 
         if (axis & Axis.vertical) == Axis.vertical:
-            full_space = self._destination.get_height()
-            centered_y = (full_space - self.get_height()) / 2
+            centered_y = (self.destination_height() - self.get_height()) / 2
             self.set_position(new_y=centered_y)
