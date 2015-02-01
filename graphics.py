@@ -233,3 +233,27 @@ class Graphic(object):
             return True
         else:
             return False
+
+    def blit(self, source, position, rect=None, special_flags=0):
+        """Draw a Surface on top of this Graphic's image.
+
+        Args:
+            source (Surface): The image that will be drawn onto this
+                Graphic.
+            position (tuple of int, int): Contains the x and y-positions
+                of the source image relative to this Graphic.
+            area (Rect): An optional parameter specifying the region of
+                the source image that will be used.
+                Leave this parameter blank to draw the entire source
+                image.
+            special_flags (int): A combination of various PyGame flags
+                for blitting effects. See the PyGame documentation on
+                Surface.blit() for more information.
+                This is an optional parameter; leave it blank to use no
+                flags when blitting.
+
+        Returns:
+            A Rect containing the region of the Graphic image that was
+            drawn onto.
+        """
+        return self._image.blit(source, position, rect, special_flags)
