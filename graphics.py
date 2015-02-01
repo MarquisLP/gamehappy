@@ -88,6 +88,18 @@ class Graphic(object):
         self._rect.x = int(round(new_x))
         self._rect.y = int(round(new_y))
 
+    def get_width(self):
+        return self._rect.width
+
+    def get_height(self):
+        return self._rect.height
+
+    def destination_width(self):
+        return self._destination.get_width()
+
+    def destination_height(self):
+        return self._destination.get_height()
+
     def is_contained(self):
         """Return a Boolean indicating whether the entire image is
         within the bounds of its destination.
@@ -118,18 +130,6 @@ class Graphic(object):
             return True
         else:
             return False
-
-    def get_width(self):
-        return self._rect.width
-
-    def get_height(self):
-        return self._rect.height
-
-    def destination_width(self):
-        return self._destination.get_width()
-
-    def destination_height(self):
-        return self._destination.get_height()
 
     def center(self, axis):
         """Center the image horizontally and/or vertically on its
