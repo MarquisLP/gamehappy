@@ -178,3 +178,16 @@ class Graphic(object):
         magnified_image = pygame.transform.scale(self._image,
             (self.get_width() * zoom, self.get_height() * zoom))
         self._image = magnified_image
+
+    def resize(self, new_width, new_height):
+        """Stretch and/or shrink the image to fit new dimensions.
+
+        Args:
+            new_width (int): The width that the image will shrink or
+                stretch to fit.
+            new_height (int): The height that the image will shrink or
+                stretch to fit.
+        """
+        resized_image = pygame.transform.scale(self._image,
+            (new_width, new_height))
+        self._image = resized_image
