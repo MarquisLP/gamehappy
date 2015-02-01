@@ -178,6 +178,7 @@ class Graphic(object):
         magnified_image = pygame.transform.scale(self._image,
             (self.get_width() * zoom, self.get_height() * zoom))
         self._image = magnified_image
+        self._update_rect_dimensions()
 
     def resize(self, new_width, new_height):
         """Stretch and/or shrink the image to fit new dimensions.
@@ -191,6 +192,14 @@ class Graphic(object):
         resized_image = pygame.transform.scale(self._image,
             (new_width, new_height))
         self._image = resized_image
+        self._update_rect_dimensions()
+
+    def _update_rect_dimensions(self):
+        """Update the width and height of _rect with the current
+        dimensions of _image.
+        """
+        self._rect.width = self._image.get_width()
+        self._rect.height = self._image.get_height()
 
     def opacify(self, amount):
         """Increase or decrease the image's transparency.
