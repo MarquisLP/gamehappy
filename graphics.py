@@ -214,7 +214,7 @@ class Graphic(object):
                 To make the image fully opaque, pass 255 or more. To
                 make the image fully transparent, pass -255 or less.
         """
-        self._image.set_alpha(amount)
+        self._image.set_alpha(self._image.get_alpha() + amount)
 
     def is_opaque(self):
         """Return a Boolean indicating whether the image is fully
