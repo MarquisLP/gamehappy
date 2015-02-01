@@ -257,3 +257,12 @@ class Graphic(object):
             drawn onto.
         """
         return self._image.blit(source, position, rect, special_flags)
+
+    def draw():
+        """Draw this Graphic's image onto its destination.
+
+        Returns:
+            A Rect containing the region of the destination that was
+            drawn onto.
+        """
+        return self._destination.blit(self._image, self._rect)
