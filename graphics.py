@@ -65,7 +65,7 @@ class Graphic(object):
                 move it up.
                 Defaults to 0.
         """
-        self._rect.move(int(round(dx)), int(round(dy)))
+        self._rect.move_ip(int(round(dx)), int(round(dy)))
 
     def set_position(self, new_x=None, new_y=None):
         """Re-position the Graphic onto an exact location relative to
