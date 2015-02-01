@@ -1,6 +1,7 @@
 """This module contains classes for representing in-game images as they
 are drawn on-screen.
 """
+import pygame.transform
 from enum import IntEnum
 from pygame.surface import Surface
 from pygame.rect import Rect
@@ -149,3 +150,17 @@ class Graphic(object):
         if (axis & Axis.vertical) == Axis.vertical:
             centered_y = (self.destination_height() - self.get_height()) / 2
             self.set_position(new_y=centered_y)
+
+    def flip(self, axis):
+        """Flip the image horizontally and/or vertically.
+
+        Args:
+            axis (Axis): A literal from the Axis enum for specifying
+                whether to apply a horizontal or vertical flip.
+                To flip the image both ways, you can combine both values
+                using the | (bitwise or) operator.
+        """
+        if (axis & Axis.horizontal) == Axis.horizontal:
+            self._image = pygame.transform.flip(self._image, True, False)
+        if (axis & Axis.vertical) == Axis.vertical:
+            self._image = pygame.transform.flip(self._image, False, True)
