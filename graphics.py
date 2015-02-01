@@ -164,3 +164,17 @@ class Graphic(object):
             self._image = pygame.transform.flip(self._image, True, False)
         if (axis & Axis.vertical) == Axis.vertical:
             self._image = pygame.transform.flip(self._image, False, True)
+
+    def magnify(self, zoom):
+        """Enlarge or shrink the image using an equal scale for the
+        width and height.
+
+        Args:
+            zoom (int): The amount used to multiply the image's
+                dimensions. For example, passing a value of 2 when the
+                image's dimensions are 24x24 will enlarge the image to
+                48x48.
+        """
+        magnified_image = pygame.transform.scale(self._image,
+            (self.get_width() * zoom, self.get_height() * zoom))
+        self._image = magnified_image
