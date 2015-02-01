@@ -258,7 +258,7 @@ class Graphic(object):
         """
         return self._image.blit(source, position, rect, special_flags)
 
-    def draw():
+    def draw(self):
         """Draw this Graphic's image onto its destination.
 
         Returns:
