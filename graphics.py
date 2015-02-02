@@ -239,7 +239,7 @@ class Graphic(object):
             return False
 
     def blit(self, source, position, rect=None, special_flags=0):
-        """Draw a Surface on top of this Graphic's image.
+        """Draw a Surface on top of this Graphic.
 
         Args:
             source (Surface): The image that will be drawn onto this
@@ -257,16 +257,19 @@ class Graphic(object):
                 flags when blitting.
 
         Returns:
-            A Rect containing the region of the Graphic image that was
+            A Rect specifying the region of the game screen that was
             drawn onto.
         """
-        return self._image.blit(source, position, rect, special_flags)
+        x = position[0] + self._rect.x
+        y = position[1] + self._rect.y
+        return self._destination.blit(source, (x, y), rect, special_flags)
 
     def draw(self):
-        """Draw this Graphic's image onto its destination.
+        """Draw this Graphic's image onto of its destination.
 
         Returns:
-            A Rect containing the region of the destination that was
+            A Rect specifying the region of the game screen that was
             drawn onto.
         """
-        return self._destination.blit(self._image, self._rect)
+        return self._destination.blit(self._image,
+            (self._rect.x, self._rect.y))
