@@ -44,7 +44,8 @@ class Graphic(object):
             y (int): The y-position of the Graphic's top-left corner
                 relative to its destination.
         """
-        self._image = source
+        self._image = source.convert()
+        self._image.set_alpha(255)
         self._rect = Rect(x, y, source.get_width(), source.get_height())
         self._destination = destination
 
