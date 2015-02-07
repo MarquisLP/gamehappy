@@ -49,3 +49,12 @@ class Component(object):
         order to initialize the entity attribute.
         """
         self.entity = None
+
+    def bind_to_entity(self, entity):
+        """Bind this Component to an Entity object.
+
+        Args:
+            entity (Entity): This component will be bound to it and have
+                access to all of its members.
+        """
+        self.entity = entity
