@@ -25,3 +25,20 @@ class Entity(Sprite):
           in-between this Entity's name and the component's name.
     """
     components = []
+
+
+class Component(object):
+    """Part of an Entity object.
+
+    It will handle one facet of the Entity, which can be graphics,
+    physics, or part of its behaviour. Subclasses should define their
+    own attributes and methods in order to accomplish this.
+
+    Ideally, a game would have many Component subclasses to define the
+    many different parts that make up different game objects.
+
+    Attributes:
+        entity (Entity): This Component is bound to it and has access
+            to all of its members.
+    """
+    pass
