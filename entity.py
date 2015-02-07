@@ -58,3 +58,17 @@ class Component(object):
                 access to all of its members.
         """
         self.entity = entity
+        self._add_self_as_attribute(entity)
+
+    def _add_self_as_attribute(self, entity):
+        """Add this Component as a new attribute in an Entity object.
+
+        Note that this will overwrite an existing Component in the
+        Entity if it is of the same class as this one.
+
+        Args:
+            entity (Entity): Will receive this Component as an
+                attribute.
+        """
+        class_name = type(self).__name__
+        setattr(entity, class_name, self)
