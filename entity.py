@@ -99,8 +99,12 @@ class Component(object):
         updates after each game cycle, don't override and the containing
         Entity will ignore this method.
 
+        You may also choose to omit the time parameter when overriding,
+        if the component does not need to perform any time-based
+        operations.
+
         Args:
             time (float): The amount of time, in seconds, that have
-                passed since the last update cycle.
+                elapsed since the last update cycle.
         """
         raise NotImplementedError
