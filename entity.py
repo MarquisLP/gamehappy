@@ -24,7 +24,7 @@ class Entity(Sprite):
           component directly, rather than having to add .components.
           in-between this Entity's name and the component's name.
     """
-    components = []
+    pass
 
 
 class Component(object):
