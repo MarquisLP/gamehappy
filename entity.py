@@ -30,8 +30,18 @@ class Entity(Sprite):
         Args:
             *components: The Component objects that make up this Entity.
         """
-        self.components = components
+        self.components = []
+        self.add_component(components)
+
+    def add_component(self, *components):
+        """Bind one or multiple components to this Entity.
+
+        Args:
+            *components: One or more Component objects that will be
+                bound to this Entity.
+        """
         for component in components:
+            self.components.append(component)
             component.bind_to_entity(self)
 
 
