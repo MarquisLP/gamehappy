@@ -41,4 +41,11 @@ class Component(object):
         entity (Entity): This Component is bound to it and has access
             to all of its members.
     """
-    pass
+    def __init__(*args):
+        """Declare and initialize instance variables.
+
+        Subclasses can override this method with their own unique
+        parameters. However, make sure to call this as a super method in
+        order to initialize the entity attribute.
+        """
+        self.entity = None
