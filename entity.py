@@ -24,7 +24,15 @@ class Entity(Sprite):
           component directly, rather than having to add .components.
           in-between this Entity's name and the component's name.
     """
-    pass
+    def __init__(self, *components):
+        """Declare and initialize instance variables.
+
+        Args:
+            *components: The Component objects that make up this Entity.
+        """
+        self.components = components
+        for component in components:
+            component.bind_to_entity(self)
 
 
 class Component(object):
@@ -72,3 +80,17 @@ class Component(object):
         """
         class_name = type(self).__name__
         setattr(entity, class_name, self)
+
+    def update(self, time):
+        """Update the processes within this Component.
+
+        Subclasses have the option of overriding this method in order to
+        provide periodic behaviour. If the component does not require
+        updates after each game cycle, don't override and the containing
+        Entity will ignore this method.
+
+        Args:
+            time (float): The amount of time, in seconds, that have
+                passed since the last update cycle.
+        """
+        raise NotImplementedError
