@@ -52,6 +52,25 @@ class Entity(Sprite):
             self.components.append(component)
             component.bind_to_entity(self)
 
+    def update(self, time):
+        """Update all Components in this Entity.
+
+        Args:
+            time (float): The amount of time elapsed, in seconds, since
+                the last update cycle.
+        """
+        for component in self.components:
+            try:
+                component.update(time)
+            except TypeError:
+                # Some Components may omit the time parameter
+                # if they don't require it for any operations.
+                try:
+                    component.update()
+                except NotImplementedError:
+                    # Other Components may not have an update method at all.
+                    pass
+
     def send_message(self, message_type, *details):
         """Broadcast data to all Component objects within this Entity.
 
