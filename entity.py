@@ -1,6 +1,7 @@
 """This module contains base classes for defining game objects as well
 as their individual components and behaviours.
 """
+from inspect import getargspec
 from pygame.sprite import Sprite
 
 
@@ -60,16 +61,23 @@ class Entity(Sprite):
                 the last update cycle.
         """
         for component in self.components:
-            try:
+            # Some Components may not require time for their operations.
+            if self._component_takes_time_argument(component):
                 component.update(time)
-            except TypeError:
-                # Some Components may omit the time parameter
-                # if they don't require it for any operations.
-                try:
-                    component.update()
-                except NotImplementedError:
-                    # Other Components may not have an update method at all.
-                    pass
+            else:
+                component.update()
+
+    def _component_takes_time_argument(self, component):
+        """Return a Boolean indicating whether the Component's update()
+        method requires the time parameter to be passed to it.
+
+        Args:
+            component (Component): The Component to check.
+        """
+        if len(getargspec(component.update)[0]) > 0:
+            return True
+        else:
+            return False
 
     def send_message(self, message_type, *details):
         """Broadcast data to all Component objects within this Entity.
@@ -157,8 +165,7 @@ class Component(object):
 
         Subclasses have the option of overriding this method in order to
         provide periodic behaviour. If the component does not require
-        updates after each game cycle, don't override and the containing
-        Entity will ignore this method.
+        updates after each game cycle, don't override this method.
 
         You may also choose to omit the time parameter when overriding,
         if the component does not need to perform any time-based
@@ -168,7 +175,7 @@ class Component(object):
             time (float): The amount of time, in seconds, that have
                 elapsed since the last update cycle.
         """
-        raise NotImplementedError
+        pass
 
     def receive_message(self, message_type, *details):
         """Act on a set of data received from another Component within
