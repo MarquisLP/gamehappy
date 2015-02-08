@@ -52,6 +52,25 @@ class Entity(Sprite):
             self.components.append(component)
             component.bind_to_entity(self)
 
+    def send_message(self, message_type, *details):
+        """Broadcast data to all Component objects within this Entity.
+
+        Args:
+            message_type (EnumType): One of the values from an Enum
+                class. This is used to classify the data being passed.
+                For example, if you had an Enum class called
+                MessageType, passing MessageType.enemy_collision would
+                indicate that the Entity collided with an enemy.
+            details: A set of data to be read and interpreted by each
+                Component, based on the type of message. The number of
+                arguments, as well as each one's type, should correspond
+                to the message type.
+                For example, if the message type was
+                MessageType.enemy_collision, the details could contain
+                the amount of damage, knockback, and hitstun.
+        """
+        pass
+
 
 class Component(object):
     """Part of an Entity object.
@@ -62,6 +81,20 @@ class Component(object):
 
     Ideally, a game would have many Component subclasses to define the
     many different parts that make up different game objects.
+
+    To communicate with other Components in the same Entity, a simple
+    messaging system is used via the Entity's send_message() and each
+    Component's receive_message().
+    For example, a Physics component can call the Entity's
+    send_message() passing data about a collision, and other Components
+    can decide how to react to that data based on their
+    receive_message().
+    In order for this to work, it is highly recommended that you create
+    your own Enum class for classifying the types of messages that can
+    be sent. (You could call it MessageType, for example.) Every game
+    will require different types of interaction between Components,
+    which is why a default message Enum is not included with this
+    library.
 
     Attributes:
         entity (Entity): This Component is bound to it and has access
@@ -114,5 +147,25 @@ class Component(object):
         Args:
             time (float): The amount of time, in seconds, that have
                 elapsed since the last update cycle.
+        """
+        raise NotImplementedError
+
+    def receive_message(self, message_type, *details):
+        """Act on a set of data received from another Component within
+        the containing Entity.
+
+        Args:
+            message_type (EnumType): One of the values from an Enum
+                class. This is used to classify the data being passed.
+                For example, if you had an Enum class called
+                MessageType, passing MessageType.enemy_collision would
+                indicate that the Entity collided with an enemy.
+            details: A set of data to be read and interpreted by each
+                Component, based on the type of message. The number of
+                arguments, as well as each one's type, should correspond
+                to the message type.
+                For example, if the message type was
+                MessageType.enemy_collision, the details could contain
+                the amount of damage, knockback, and hitstun.
         """
         raise NotImplementedError
