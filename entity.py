@@ -69,7 +69,8 @@ class Entity(Sprite):
                 MessageType.enemy_collision, the details could contain
                 the amount of damage, knockback, and hitstun.
         """
-        pass
+        for component in self.components:
+            component.receive_message(message_type, details)
 
 
 class Component(object):
