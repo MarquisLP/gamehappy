@@ -17,6 +17,8 @@ class Entity(Sprite):
     automatically be removed from memory once it belongs to no Groups.
 
     Attributes:
+        x (int): The x-position of the Entity relative to the screen.
+        y (int): The y-position of the Entity relative to the screen.
         components (list): Contains all of the Component objects that
             are contained in this Entity.
         * Note that components will also be added as unique attributes
@@ -24,12 +26,18 @@ class Entity(Sprite):
           component directly, rather than having to add .components.
           in-between this Entity's name and the component's name.
     """
-    def __init__(self, *components):
+    def __init__(self, x, y, *components):
         """Declare and initialize instance variables.
 
         Args:
+            x (int): The x-position of the Entity relative to the
+                screen.
+            y (int): The y-position of the Entity relative to the
+                screen.
             *components: The Component objects that make up this Entity.
         """
+        self.x = x
+        self.y = y
         self.components = []
         self.add_component(components)
 
