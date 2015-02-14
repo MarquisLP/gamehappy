@@ -1,12 +1,17 @@
-GameWrappy
+GameHappy
 ==========
-Asset handling and wrapper classes for PyGame.
+A flexible game engine for PyGame projects.
 
 ## Features
 * Wrapper classes that make handling graphics and audio within game
   engines unified and non-trivial.
 * Quick and easy resource management to make sure that no file is
   loaded twice.
+* Component-based Entity system allows game objects to possess any
+  unique properties and behaviours you can come up with.
+* Other quirks in game development - such as state management and
+  screen drawing - are taken care of, leaving you to focus on the
+  design of your game.
 
 ## License
 See [UNLICENSE.txt](UNLICENSE.txt).
