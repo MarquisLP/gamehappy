@@ -10,3 +10,4 @@ gamehappy/
 	groups.py
 	resources.py
 	screen.py
+    	state_manager.py	
