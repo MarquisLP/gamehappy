@@ -1,11 +1,12 @@
 gamehappy/
 	__init__.py
-	base/
+	materials/
 		__init__.py
 		game_objects.py
+		game_state.py
 		graphics.py
+		sound.py
 	factory.py
-	game_state.py
 	groups.py
 	resources.py
 	screen.py
