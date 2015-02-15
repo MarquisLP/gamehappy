@@ -1,13 +1,13 @@
 gamehappy/
+    __init__.py
+    materials/
 	__init__.py
-	materials/
-		__init__.py
-		game_objects.py
-		game_state.py
-		graphics.py
-		sound.py
-	factory.py
-	groups.py
-	resources.py
-	screen.py
-    	state_manager.py	
+	game_objects.py
+	game_state.py
+	graphics.py
+	sound.py
+    factory.py
+    groups.py
+    resources.py
+    screen.py
+    state_manager.py	
