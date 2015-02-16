@@ -122,6 +122,40 @@ class Graphic(Component):
             centered_y += container_rect.y
             self.entity.set_position(new_y=centered_y - self._rect.y)
 
+    def is_contained(self, container_rect):
+        """Return a Boolean indicating whether this Graphic is
+        completely contained within an area of the screen.
+        (i.e. No pixels exceed the area's boundaries.)
+
+        Args:
+            container_rect (Rect): Contains the position and dimensions
+                of the area this Graphic will be compared to.
+        """
+        if container_rect.contains(self.draw_rect()):
+            return True
+        else:
+            return False
+
+    def is_outside(self, container_rect):
+        """Return a Boolean indicating whether this Graphic is
+        completely outside of an area of the screen.
+        (i.e. All pixels exceed the area's boundaries.)
+
+        Args:
+            container_rect (Rect): Contains the position and dimensions
+                of the area this Graphic will be compared to.
+        """
+        if not container_rect.colliderect(self.draw_rect()):
+            return True
+        else:
+            return False
+
+    def draw_rect(self):
+        """Return a Rect containing the actual position the Graphic
+        will be drawn to, with the Entity's position taken into account.
+        """
+        return self._rect.move(self.entity.x, self.entity.y)
+
     def flip(self, axis):
         """Flip the image horizontally and/or vertically.
 
