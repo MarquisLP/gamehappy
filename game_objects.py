@@ -53,6 +53,45 @@ class Entity(Sprite):
             self.components.append(component)
             component.bind_to_entity(self)
 
+    def move(self, dx=0, dy=0):
+        """Move this Entity a set horizontal and/or vertical distance.
+
+        It is safe to pass floats as arguments to this method; they will
+        automatically be rounded to the nearest whole number.
+
+        Args:
+            dx (int): The horizontal distance to travel, in pixels.
+                The default value is 0.
+            dy (int): The vertical distance to travel, in pixels.
+                The default value is 0.
+        """
+        self.x += int(round(dx))
+        self.y += int(round(dy))
+
+    def set_position(self, new_x=None, new_y=None):
+        """Re-position this Entity onto a new position relative to the
+        screen.
+
+        It is safe to pass floats as arguments to this method; they will
+        automatically be rounded to the nearest whole number.
+
+        Args:
+            new_x (int): The x-coordinate of the top-left corner for the
+                Entity's new screen position.
+                This parameter is optional; you can omit it from the
+                function call if you want to retain the Entity's
+                x-position.
+            new_y (int): The y-coordinate of the top-left corner for the
+                Entity's new screen position.
+                This parameter is optional; you can omit it from the
+                function call if you want to retain the Entity's
+                y-position.
+        """
+        if new_x is not None:
+            self.x = int(round(new_x))
+        if new_y is not None:
+            self.y = int(round(new_y))
+
     def update(self, time):
         """Update all Components in this Entity.
 
