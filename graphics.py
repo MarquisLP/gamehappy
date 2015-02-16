@@ -18,8 +18,12 @@ class Graphic(Component):
     """A 2D image that can draw itself onto a Surface or another
     Graphic.
 
-    It will automatically keep track of its position relative to its
-    destination.
+    It maintains a position relative to the associated Entity's
+    on-screen position and will be drawn there accordingly.
+    (For example, if the Entity's position is (30, 30) and this
+    Graphic's position is (2, 3), it will be drawn to (32, 33)
+    on-screen.)
+
     Several effects can also be applied to it, such as flipping the
     image and adding or reducing transparency.
 
@@ -35,9 +39,9 @@ class Graphic(Component):
             source (Surface): Contains the 2D image associated with this
                 Graphic.
             x (int): The x-position of the Graphic's top-left corner
-                relative its destination.
+                relative its associated Entity.
             y (int): The y-position of the Graphic's top-left corner
-                relative its destination.
+                relative its associated Entity.
         """
         super(Graphic, self).__init__()
         self._image = source.convert()
@@ -65,7 +69,7 @@ class Graphic(Component):
 
     def set_position(self, new_x=None, new_y=None):
         """Re-position the Graphic onto an exact location relative to
-        its destination.
+        its associated Entity.
 
         It is safe to pass floats as arguments to this method; they will
         automatically be rounded to the nearest whole number.
@@ -234,4 +238,5 @@ class Graphic(Component):
             A Rect containing the region of the destination that was
             drawn onto.
         """
-        return destination.blit(self._image, (self._rect.x, self._rect.y))
+        return destination.blit(self._image,
+            (self.entity.x + self._rect.x, self.entity.y + self._rect.y))
