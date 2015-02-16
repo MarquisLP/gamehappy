@@ -99,8 +99,8 @@ class Graphic(Component):
         return self._rect.height
 
     def center(self, axis, container_rect):
-        """Center the image horizontally and/or vertically across an
-        area.
+        """Move the associated Entity so that this Graphic is centered
+        horizontally and/or vertically within an area of the screen.
 
         Args:
             axis (Axis): A literal from the Axis enum for specifying
@@ -115,12 +115,12 @@ class Graphic(Component):
         if (axis & Axis.horizontal) == Axis.horizontal:
             centered_x = (container_rect.width - self.get_width()) / 2
             centered_x += container_rect.x
-            self.set_position(new_x=centered_x)
+            self.entity.set_position(new_x=centered_x - self._rect.x)
 
         if (axis & Axis.vertical) == Axis.vertical:
             centered_y = (container_rect.height - self.get_height()) / 2
             centered_y += container_rect.y
-            self.set_position(new_y=centered_y)
+            self.entity.set_position(new_y=centered_y - self._rect.y)
 
     def flip(self, axis):
         """Flip the image horizontally and/or vertically.
