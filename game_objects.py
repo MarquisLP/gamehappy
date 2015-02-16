@@ -158,7 +158,7 @@ class Component(object):
                 attribute.
         """
         class_name = type(self).__name__
-        setattr(entity, class_name, self)
+        setattr(entity, class_name.lower(), self)
 
     def update(self, time):
         """Update the processes within this Component.
