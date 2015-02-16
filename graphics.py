@@ -273,5 +273,4 @@ class Graphic(Component):
             A Rect containing the region of the destination that was
             drawn onto.
         """
-        return destination.blit(self._image,
-            (self.entity.x + self._rect.x, self.entity.y + self._rect.y))
+        return destination.blit(self._image, self.draw_rect())
