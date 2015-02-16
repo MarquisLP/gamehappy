@@ -48,9 +48,10 @@ class Graphic(Component):
         self._image.set_alpha(255)
         self._rect = Rect(x, y, source.get_width(), source.get_height())
 
-    def move(self, dx=0, dy=0):
-        """Move the Graphic a set horizontal and/or vertical distance in
-        pixels.
+    def offset(self, dx=0, dy=0):
+        """Move the Graphic away from its original position relative to
+        the associated Entity by a set horizontal and/or vertical
+        distance.
 
         It is safe to pass floats as arguments to this method; they will
         automatically be rounded to the nearest whole number.
