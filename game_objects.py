@@ -40,7 +40,7 @@ class Entity(Sprite):
         self.x = x
         self.y = y
         self.components = []
-        self.add_component(components)
+        self.add_component(*components)
 
     def add_component(self, *components):
         """Bind one or multiple components to this Entity.
@@ -128,7 +128,7 @@ class Component(object):
         entity (Entity): This Component is bound to it and has access
             to all of its members.
     """
-    def __init__(*args):
+    def __init__(self, *args):
         """Declare and initialize instance variables.
 
         Subclasses can override this method with their own unique
