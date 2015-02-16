@@ -274,3 +274,33 @@ class Graphic(Component):
             drawn onto.
         """
         return destination.blit(self._image, self.draw_rect())
+
+
+class Animation(Graphic):
+    """A 2D image that alternates between frames after set time
+    intervals.
+
+    As a subclass of Graphic, it can be used in all of the same
+    situations as a regular Graphic instance. This is aided by the
+    fact that it is added to an Entity under the attribute name
+    'graphic', allowing you to write code that affects all Entities'
+    graphical Components regardless of whether they are Graphics or
+    Animations.
+
+    Attributes:
+        _frame_index (int): The ID of the frame currently being shown.
+        _frame_counter (int): Keeps track of how many update cycles have
+            passed since changing to the current frame. Once it exceeds
+            the current frame's duration, the next frame is displayed.
+        _frame_durations (list of int): Contains the duration, in
+            update cycles, of each frame in order.
+        _is_playing_backwards (Boolean): Specifies whether the Animation
+            is cycling through its frames in reverse order.
+            Animations play forward by default.
+        _is_paused (Boolean): Specifies whether the Animation should
+            prevent itself from changing the current frame.
+            Animations are unpaused by default.
+        _held_frame (int): A frame ID; the next time the Animation
+            displays this frame, it will immediately pause itself.
+    """
+    pass
