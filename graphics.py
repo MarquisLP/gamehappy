@@ -5,6 +5,7 @@ import pygame.transform
 from enum import IntEnum
 from pygame.surface import Surface
 from pygame.rect import Rect
+from game_objects import Component
 
 
 class Axis(IntEnum):
@@ -13,41 +14,35 @@ class Axis(IntEnum):
     vertical = 2
 
 
-class Graphic(object):
+class Graphic(Component):
     """A 2D image that can draw itself onto a Surface or another
     Graphic.
 
     It will automatically keep track of its position relative to its
-    destination Surface/Graphic.
+    destination.
     Several effects can also be applied to it, such as flipping the
-    image or adding and reducing transparency.
+    image and adding or reducing transparency.
 
     Attributes:
         _image (Surface): Contains the Graphic's actual pixel data.
         _rect (Rect): Contains the Graphic's x and y-positions relative
-            to _destination, as well as its width and height.
-        _destination (Surface/Graphic): The visual object that will have
-            _image blitted on top of it. This Graphic will remain bound
-            to only one destination for its entire lifetime.
+            to its destination, as well as its width and height.
     """
-    def __init__(self, source, destination, x, y):
+    def __init__(self, source, x, y):
         """Declare and initialize instance variables.
 
         Args:
             source (Surface): Contains the 2D image associated with this
                 Graphic.
-            destination (Surface/Graphic): The visual object that this
-                Graphic will be drawn onto for the entire time it exists
-                in memory.
             x (int): The x-position of the Graphic's top-left corner
-                relative to its destination.
+                relative its destination.
             y (int): The y-position of the Graphic's top-left corner
-                relative to its destination.
+                relative its destination.
         """
+        super(Graphic, self).__init__()
         self._image = source.convert()
         self._image.set_alpha(255)
         self._rect = Rect(x, y, source.get_width(), source.get_height())
-        self._destination = destination
 
     def move(self, dx=0, dy=0):
         """Move the Graphic a set horizontal and/or vertical distance in
@@ -98,46 +93,9 @@ class Graphic(object):
     def get_height(self):
         return self._rect.height
 
-    def destination_width(self):
-        return self._destination.get_width()
-
-    def destination_height(self):
-        return self._destination.get_height()
-
-    def is_contained(self):
-        """Return a Boolean indicating whether the entire image is
-        within the bounds of its destination.
-
-        For example, if this Graphic's destination is the Surface
-        representing the screen, this method will return True if every
-        pixel of the image is on-screen.
-        """
-        bounds = Rect(0, 0, self.destination_width(),
-            self.destination_height())
-        if bounds.contains(self._rect):
-            return True
-        else:
-            return False
-
-    def is_outside(self):
-        """Return a Boolean indicating whether the entire image is out
-        of the bounds of its destination.
-
-        For example, if this Graphic's destination is the Surface
-        representing the screen, this method will return True if all
-        pixels in the image are off-screen.
-        """
-        if ((self._rect.x + self.get_width() < 0) or
-                (self._rect.x > self.destination_width()) or
-                (self._rect.y + self.get_height() < 0) or
-                (self._rect.y > self.destination_height())):
-            return True
-        else:
-            return False
-
-    def center(self, axis):
-        """Center the image horizontally and/or vertically on its
-        destination.
+    def center(self, axis, container_rect):
+        """Center the image horizontally and/or vertically across an
+        area.
 
         Args:
             axis (Axis): A literal from the Axis enum for specifying
@@ -145,13 +103,18 @@ class Graphic(object):
                 or vertical plane.
                 To center the image on both planes, you can combine both
                 values using the | (bitwise or) operator.
+            container_rect (Rect): A Rect containing the position and
+                dimensions of the area that this Graphic will be
+                centered relative to.
         """
         if (axis & Axis.horizontal) == Axis.horizontal:
-            centered_x = (self.destination_width() - self.get_width()) / 2
+            centered_x = (container_rect.width - self.get_width()) / 2
+            centered_x += container_rect.x
             self.set_position(new_x=centered_x)
 
         if (axis & Axis.vertical) == Axis.vertical:
-            centered_y = (self.destination_height() - self.get_height()) / 2
+            centered_y = (container_rect.height - self.get_height()) / 2
+            centered_y += container_rect.y
             self.set_position(new_y=centered_y)
 
     def flip(self, axis):
@@ -257,19 +220,18 @@ class Graphic(object):
                 flags when blitting.
 
         Returns:
-            A Rect specifying the region of the game screen that was
-            drawn onto.
+            A Rect containing the region of this Graphic that was drawn
+            onto.
         """
-        x = position[0] + self._rect.x
-        y = position[1] + self._rect.y
-        return self._destination.blit(source, (x, y), rect, special_flags)
+        x = position[0]
+        y = position[1]
+        return self._image.blit(source, (x, y), rect, special_flags)
 
-    def draw(self):
+    def draw(self, destination):
         """Draw this Graphic's image onto of its destination.
 
         Returns:
-            A Rect specifying the region of the game screen that was
+            A Rect containing the region of the destination that was
             drawn onto.
         """
-        return self._destination.blit(self._image,
-            (self._rect.x, self._rect.y))
+        return destination.blit(self._image, (self._rect.x, self._rect.y))
