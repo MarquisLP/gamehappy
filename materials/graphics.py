@@ -8,6 +8,42 @@ from pygame.rect import Rect
 from game_objects import Component
 
 
+def order_flipped_sprite_sheet(self, flipped_sheet, frame_width):
+    """Re-order the frames in a sprite sheet after the sheet has been
+    flipped, such that the frames are in the same order as they were
+    originally.
+
+    This operation is necessary because flipping a sprite sheet flips
+    the order of the frames as well, causing the right-most frames on
+    the sheet to be placed on the left side and vice-versa.
+
+    Args:
+        flipped_sheet (Surface): Contains a flipped sprite sheet.
+        frame_width (int): The width of each frame, in pixels.
+
+    Returns:
+        A new Surface containing the sprite sheet with the frames'
+        content flipped, but arranged in their original order.
+    """
+    ordered_sheet = Surface((flipped_sheet.get_width(),
+                             flipped_sheet.get_height()))
+    num_of_frames = ordered_sheet.get_width() / frame_width
+
+    for frame_index in range(0, num_of_frames):
+        x = frame_index * frame_width
+        # The copied frame starts from the right end of the sheet and
+        # proceeds right to left. Since x in the first iteration is
+        # always 0 (which would cause the copied area to start from
+        # the right edge of the last sprite), the copy area is shifted by an
+        # an additional frame_width in order to start from the left edge of
+        # last sprite.
+        copy_area = Rect(flipped_sheet.get_width() - frame_width - x, 0,
+                         frame_width, flipped_sheet.get_height())
+        ordered_sheet.blit(flipped_sheet, (x, 0), copy_area)
+
+    return ordered_sheet
+
+
 class Axis(IntEnum):
     """Contains int representations of the possible 2D axes."""
     horizontal = 1
@@ -334,3 +370,19 @@ class Animation(Graphic):
         Animation.
         """
         return self._image.get_width() / len(self._frame_durations)
+
+    def flip(self, axis):
+        """Flip the image horizontally and/or vertically.
+
+        Args:
+            axis (Axis): A literal from the Axis enum for specifying
+                whether to apply a horizontal or vertical flip.
+                To flip the image both ways, you can combine both values
+                using the | (bitwise or) operator.
+        """
+        if (axis & Axis.vertical) == Axis.vertical:
+            self.flip(Axis.vertical)
+        if (axis & Axis.horizontal) == Axis.horizontal:
+            self.flip(Axis.horizontal)
+            self._image = order_flipped_sprite_sheet(self._image,
+                                                     self.get_width())
