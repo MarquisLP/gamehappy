@@ -365,6 +365,19 @@ class Animation(Graphic):
         self._is_paused = False
         self._held_frame = -1
 
+    def _add_self_as_attribute(self, entity):
+        """Add this Animation as a new attribute in an Entity object.
+
+        Note that this will overwrite an existing Graphic or Animation
+        already bound to the specified Entity.
+
+        Args:
+            entity (Entity): Will receive this Animation as an
+                attribute.
+        """
+        super_name = self.__class__.__bases__[0].__name__
+        setattr(entity, super_name.lower(), self)
+
     def _calculate_frame_width(self):
         """Return the width, in pixels, of a single frame in this
         Animation.
