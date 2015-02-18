@@ -29,8 +29,8 @@ class Graphic(Component):
 
     Attributes:
         _image (Surface): Contains the Graphic's actual pixel data.
-        _rect (Rect): Contains the Graphic's x and y-positions relative
-            to its destination, as well as its width and height.
+        _rect (Rect): Contains the Graphic's x and y-offsets relative
+            to its associated Entity, as well as its width and height.
     """
     def __init__(self, source, x, y):
         """Declare and initialize instance variables.
@@ -38,10 +38,10 @@ class Graphic(Component):
         Args:
             source (Surface): Contains the 2D image associated with this
                 Graphic.
-            x (int): The x-position of the Graphic's top-left corner
-                relative its associated Entity.
-            y (int): The y-position of the Graphic's top-left corner
-                relative its associated Entity.
+            x (int): The x-offset of the Graphic's top-left corner
+                relative to its associated Entity.
+            y (int): The y-offset of the Graphic's top-left corner
+                relative to its associated Entity.
         """
         super(Graphic, self).__init__()
         self._image = source.convert()
