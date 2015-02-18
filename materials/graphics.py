@@ -32,7 +32,7 @@ class Graphic(Component):
         _rect (Rect): Contains the Graphic's x and y-offsets relative
             to its associated Entity, as well as its width and height.
     """
-    def __init__(self, source, x, y):
+    def __init__(self, source, x=0, y=0):
         """Declare and initialize instance variables.
 
         Args:
@@ -40,8 +40,10 @@ class Graphic(Component):
                 Graphic.
             x (int): The x-offset of the Graphic's top-left corner
                 relative to its associated Entity.
+                The default value is 0.
             y (int): The y-offset of the Graphic's top-left corner
                 relative to its associated Entity.
+                The default value is 0.
         """
         super(Graphic, self).__init__()
         self._image = source.convert()
