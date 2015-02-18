@@ -324,6 +324,13 @@ class Animation(Graphic):
         self._frame_index = 0
         self._frame_counter = 0
         self._frame_durations = frame_durations
+        self._rect.width = self._calculate_frame_width()
         self._is_playing_backwards = False
         self._is_paused = False
         self._held_frame = -1
+
+    def _calculate_frame_width(self):
+        """Return the width, in pixels, of a single frame in this
+        Animation.
+        """
+        return self._image.get_width() / len(self._frame_durations)
