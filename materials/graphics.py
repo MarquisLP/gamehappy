@@ -304,5 +304,26 @@ class Animation(Graphic):
             Animations are unpaused by default.
         _held_frame (int): A frame ID; the next time the Animation
             displays this frame, it will immediately pause itself.
+            A value less than 0 means that no frame will be held.
     """
-    pass
+    def __init__(self, source, x=0, y=0, *frame_durations):
+        """Declare and initialize instance variables.
+
+        Args:
+            source (Surface): Contains this Animation's sprite sheet.
+            x (int): The x-offset of the top-left corner of this
+                Animation relative to its associated Entity.
+                The default value is 0.
+            y (int): The y-offset of the top-left corner of this
+                Animation relative to its associated Entity.
+                The default value is 0.
+            frame_durations: A set of integers for the duration, in
+                update cycles, of each frame in order.
+        """
+        super(Animation, self).__init__(source, x, y)
+        self._frame_index = 0
+        self._frame_counter = 0
+        self._frame_durations = frame_durations
+        self._is_playing_backwards = False
+        self._is_paused = False
+        self._held_frame = -1
