@@ -340,7 +340,9 @@ class Animation(Graphic):
             Animations are unpaused by default.
         _held_frame (int): A frame ID; the next time the Animation
             displays this frame, it will immediately pause itself.
-            A value less than 0 means that no frame will be held.
+            A value less than 0 means that the last frame will be held.
+            (If backwards playback is enabled, this will be the 'first'
+             frame in the sprite sheet.)
     """
     def __init__(self, source, x=0, y=0, *frame_durations):
         """Declare and initialize instance variables.
@@ -363,7 +365,7 @@ class Animation(Graphic):
         self._rect.width = self._calculate_frame_width()
         self._is_playing_backwards = False
         self._is_paused = False
-        self._held_frame = -1
+        self._held_frame = None
 
     def _add_self_as_attribute(self, entity):
         """Add this Animation as a new attribute in an Entity object.
