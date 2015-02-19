@@ -399,3 +399,18 @@ class Animation(Graphic):
             self.flip(Axis.horizontal)
             self._image = order_flipped_sprite_sheet(self._image,
                                                      self.get_width())
+
+    def resize(self, new_width, new_height):
+        """Stretch and/or shrink the image to fit new dimensions.
+
+        Args:
+            new_width (int): The width that the image will shrink or
+                stretch to fit.
+            new_height (int): The height that the image will shrink or
+                stretch to fit.
+        """
+        # The width passed is the new width for a single frame.
+        # The width of the sprite sheet is always equal to:
+        #     singular frame width * number of frames
+        new_width *= len(self._frame_durations)
+        super(Animation, self).resize(new_width, new_height)
