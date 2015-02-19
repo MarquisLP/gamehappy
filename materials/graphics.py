@@ -453,3 +453,16 @@ class Animation(Graphic):
             be held.
         """
         self._held_frame = frame_index
+
+    def pause(self):
+        """Prevent this Animation from cycling to the next frame until
+        it is unpaused.
+        """
+        self._frame_counter = 0
+        self._is_paused = True
+
+    def unpause(self):
+        """If the Animation is currently paused, unpause it and allow
+        it to cycle through its frames again.
+        """
+        self._is_paused = False
