@@ -443,3 +443,12 @@ class Animation(Graphic):
         playing forwards, or vice-versa.
         """
         self._is_playing_backwards = not self._is_playing_backwards
+
+    def hold_frame(self, frame_index=-1):
+        """Pause the Animation once it displays a certain frame.
+
+        frame_index (int): The ID of the frame to hold.
+            The default value is -1, which will cause the last frame to
+            be held.
+        """
+        self._held_frame = frame_index
