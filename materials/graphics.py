@@ -428,13 +428,14 @@ class Animation(Graphic):
         self._rect.width = (self._image.get_width() / self.num_of_frames())
         self._rect.height = self._image.get_height()
 
-    def set_backwards_playback(self, enabled):
+    def enable_backwards_playback(self, enabled=True):
         """Enable or disable playback of this Animation in reverse frame
         order.
 
         Args:
             enabled (Boolean): Specifies whether the Animation will
                 cycle through its frames in reverse order.
+                The default value is True.
         """
         self._is_playing_backwards = enabled
 
