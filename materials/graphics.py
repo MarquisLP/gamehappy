@@ -414,3 +414,11 @@ class Animation(Graphic):
         #     singular frame width * number of frames
         new_width *= len(self._frame_durations)
         super(Animation, self).resize(new_width, new_height)
+
+    def _update_rect_dimensions(self):
+        """Update the width and height of _rect with the current
+        singular frame dimensions of the sprite sheet.
+        """
+        self._rect.width = (self._image.get_width() /
+                            len(self._frame_durations))
+        self._rect.height = self._image.get_height()
