@@ -382,7 +382,11 @@ class Animation(Graphic):
         """Return the width, in pixels, of a single frame in this
         Animation.
         """
-        return self._image.get_width() / len(self._frame_durations)
+        return self._image.get_width() / self.num_of_frames()
+
+    def num_of_frames(self):
+        """Return the number of frames in this Animation."""
+        return len(self._frame_durations)
 
     def flip(self, axis):
         """Flip the image horizontally and/or vertically.
@@ -419,6 +423,5 @@ class Animation(Graphic):
         """Update the width and height of _rect with the current
         singular frame dimensions of the sprite sheet.
         """
-        self._rect.width = (self._image.get_width() /
-                            len(self._frame_durations))
+        self._rect.width = (self._image.get_width() / self.num_of_frames())
         self._rect.height = self._image.get_height()
