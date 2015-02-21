@@ -516,3 +516,17 @@ class Animation(Graphic):
             else:
                 super(Animation, self).blit(source, tuple(position),
                                             rect, special_flags)
+
+    def draw(self, destination):
+        """Draw this Animation's current frame onto a destination
+        Surface.
+
+        Args:
+            destination (Surface): Will have this Animation drawn on it.
+
+        Returns:
+            A Rect containing the region of the destination that was
+            drawn onto.
+        """
+        return destination.blit(self._image, self.draw_rect(),
+                                self.current_frame_region())
