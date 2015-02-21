@@ -473,3 +473,46 @@ class Animation(Graphic):
         """
         return Rect(self._frame_index * self.get_width(), 0,
                     self.get_width(), self.get_height())
+
+    def blit(self, source, position, rect=None, special_flags=0):
+        """Draw a Surface on top of this Animation.
+
+        Args:
+            source (Surface): The image that will be drawn onto this
+                Animation.
+            position (tuple of int, int): Contains the x and y-positions
+                of the source image relative to this Graphic.
+            area (Rect): An optional parameter specifying the region of
+                the source image that will be used.
+                Leave this parameter blank to draw the entire source
+                image.
+            special_flags (int): A combination of various PyGame flags
+                for blitting effects. See the PyGame documentation on
+                Surface.blit() for more information.
+                This is an optional parameter; leave it blank to use no
+                flags when blitting.
+
+        Returns:
+            A Rect containing the region of this Animation that was drawn
+            onto.
+        """
+        position = list(position)
+
+        # The source image needs to be drawn on all frames.
+        for frame_index in reversed(xrange(self.num_of_frames())):
+            # The x-value of the position needs to be shifted over
+            # to the frame that will be modified.
+            position[0] += frame_index * self.get_width()
+
+            # Since the first frame in the sprite sheet doesn't shift
+            # the x-position, its blit Rect will be used as this
+            # function's return Rect.
+            # This will terminate the function, so the frames are iterated
+            # in reverse order to ensure that the first frame is the last to
+            # to be blitted to.
+            if frame_index == 0:
+                return super(Animation, self).blit(source, tuple(position),
+                                                   rect, special_flags)
+            else:
+                super(Animation, self).blit(source, tuple(position),
+                                            rect, special_flags)
