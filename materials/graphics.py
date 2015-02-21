@@ -305,7 +305,10 @@ class Graphic(Component):
         return self._image.blit(source, (x, y), rect, special_flags)
 
     def draw(self, destination):
-        """Draw this Graphic's image onto of its destination.
+        """Draw this Graphic's image onto a destination Surface.
+
+        Args:
+            destination (Surface): Will have this Graphic drawn on it.
 
         Returns:
             A Rect containing the region of the destination that was
