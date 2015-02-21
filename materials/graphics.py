@@ -403,9 +403,9 @@ class Animation(Graphic):
                 using the | (bitwise or) operator.
         """
         if (axis & Axis.vertical) == Axis.vertical:
-            self.flip(Axis.vertical)
+            super(Animation, self).flip(Axis.vertical)
         if (axis & Axis.horizontal) == Axis.horizontal:
-            self.flip(Axis.horizontal)
+            super(Animation, self).flip(Axis.horizontal)
             self._image = order_flipped_sprite_sheet(self._image,
                                                      self.get_width())
 
