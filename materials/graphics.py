@@ -583,6 +583,6 @@ class Animation(Graphic):
         if ((self._frame_index == self._held_frame) or
                 # _held_frame < 0 indicates pause on the last frame.
                 (self._frame_index == self.num_of_frames() - 1 and
-                 self._held_frame < 0)):
+                 self._held_frame is not None and self._held_frame < 0)):
             self._held_frame = None
             self.pause()
