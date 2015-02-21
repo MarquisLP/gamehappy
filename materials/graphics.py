@@ -543,10 +543,14 @@ class Animation(Graphic):
             self._frame_counter += 1
 
             if self._frame_has_completed_duration():
+                self._frame_counter = 0
+
                 if self._is_playing_backwards:
                     self._select_previous_frame()
                 else:
                     self._select_next_frame()
+
+                self._check_held_frame()
 
     def _frame_has_completed_duration(self):
         """Return a Boolean indicating whether the current frame has
@@ -571,3 +575,14 @@ class Animation(Graphic):
         # After the first frame, loop back to the last frame.
         if self._frame_index < 0:
             self._frame_index = self.num_of_frames() - 1
+
+    def _check_held_frame(self):
+        """Pause the Animation if the current frame was set as the held
+        frame.
+        """
+        if ((self._frame_index == self._held_frame) or
+                # _held_frame < 0 indicates pause on the last frame.
+                (self._frame_index == self.num_of_frames() - 1 and
+                 self._held_frame < 0)):
+            self._held_frame = None
+            self.pause()
