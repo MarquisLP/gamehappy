@@ -113,7 +113,7 @@ class Entity(Sprite):
         Args:
             component (Component): The Component to check.
         """
-        if len(getargspec(component.update)[0]) > 0:
+        if getargspec(component.update)[1] is not None:
             return True
         else:
             return False
