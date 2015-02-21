@@ -533,3 +533,41 @@ class Animation(Graphic):
         """
         return destination.blit(self._image, self.draw_rect(),
                                 self.current_frame_region())
+
+    def update(self):
+        """Update this Animation's processes.
+
+        This method should be called once every update cycle.
+        """
+        if not self._is_paused:
+            self._frame_counter += 1
+
+            if self._frame_has_completed_duration():
+                if self._is_playing_backwards:
+                    self._select_previous_frame()
+                else:
+                    self._select_next_frame()
+
+    def _frame_has_completed_duration(self):
+        """Return a Boolean indicating whether the current frame has
+        been displayed for the appropriate amount of time.
+        """
+        return self._frame_counter >= self._frame_durations[self._frame_index]
+
+    def _select_next_frame(self):
+        """Set the displayed frame to the next one in the sprite sheet.
+        """
+        self._frame_index += 1
+
+        # After the last frame, loop back to the first frame.
+        if self._frame_index >= self.num_of_frames():
+            self._frame_index = 0
+
+    def _select_previous_frame(self):
+        """Set the displayed frame to the previous one in the sprite
+        sheet.
+        """
+        self._frame_index -= 1
+        # After the first frame, loop back to the last frame.
+        if self._frame_index < 0:
+            self._frame_index = self.num_of_frames() - 1
