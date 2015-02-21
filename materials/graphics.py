@@ -8,7 +8,7 @@ from pygame.rect import Rect
 from game_objects import Component
 
 
-def order_flipped_sprite_sheet(self, flipped_sheet, frame_width):
+def order_flipped_sprite_sheet(flipped_sheet, frame_width):
     """Re-order the frames in a sprite sheet after the sheet has been
     flipped, such that the frames are in the same order as they were
     originally.
