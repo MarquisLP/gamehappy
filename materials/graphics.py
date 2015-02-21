@@ -466,3 +466,10 @@ class Animation(Graphic):
         it to cycle through its frames again.
         """
         self._is_paused = False
+
+    def current_frame_region(self):
+        """Return a Rect containing the area of the currently-displayed
+        frame within the sprite sheet.
+        """
+        return Rect(self._frame_index * self.get_width(), 0,
+                    self.get_width(), self.get_height())
