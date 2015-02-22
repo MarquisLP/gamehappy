@@ -1,4 +1,4 @@
-![GameHappy Logo](Images/Logo.png)
+![GameHappy Logo](Images/Logo.png =300x)
 ==========
 A flexible game engine for PyGame projects.
 
