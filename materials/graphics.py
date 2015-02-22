@@ -5,7 +5,35 @@ import pygame.transform
 from enum import IntEnum
 from pygame.surface import Surface
 from pygame.rect import Rect
+from pygame.color import Color
 from game_objects import Component
+
+
+def convert_to_colorkey_alpha(surf, colorkey=Color('magenta')):
+    """Give the surface a colorkeyed background that will be
+    transparent when drawing.
+
+    Colorkey alpha, unlike per-pixel alpha, will keep the image's
+    transparent background while using methods such as
+    Surface.set_alpha().
+
+    Keyword arguments:
+        surf (Surface): Will be converted to alpha using colorkey.
+        colorkey (Color): The color value for the colorkey.
+            The default is magenta or RGB(255, 0, 255).
+            This should be set to a color that isn't present in the
+            image, otherwise those areas with a matching colour
+            will be drawn transparent as well.
+    """
+    colorkeyed_surf = Surface(surf.get_size())
+
+    colorkeyed_surf.fill(colorkey)
+    colorkeyed_surf.blit(surf, (0, 0))
+    colorkeyed_surf.set_colorkey(colorkey)
+    colorkeyed_surf.convert()
+    colorkeyed_surf.set_alpha(255)
+
+    return colorkeyed_surf
 
 
 def order_flipped_sprite_sheet(flipped_sheet, frame_width):
@@ -82,8 +110,7 @@ class Graphic(Component):
                 The default value is 0.
         """
         super(Graphic, self).__init__()
-        self._image = source.convert()
-        self._image.set_alpha(255)
+        self._image = convert_to_colorkey_alpha(source)
         self._rect = Rect(x, y, source.get_width(), source.get_height())
 
     def offset(self, dx=0, dy=0):
