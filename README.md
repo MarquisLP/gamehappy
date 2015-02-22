@@ -1,4 +1,4 @@
-![GameHappy Logo](Images/Logo.png =300x)
+<img src="Images/Logo.png" alt="GameHappy Logo" height="300" width="300" />
 ==========
 A flexible game engine for PyGame projects.
 
