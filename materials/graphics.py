@@ -53,8 +53,15 @@ def order_flipped_sprite_sheet(flipped_sheet, frame_width):
         A new Surface containing the sprite sheet with the frames'
         content flipped, but arranged in their original order.
     """
-    ordered_sheet = Surface((flipped_sheet.get_width(),
-                             flipped_sheet.get_height()))
+    # To prevent alpha transparency issues, the source sheet will be
+    # set to total opacity during the reordering the process.
+    # Afterwards, the resulting sheet will be set to the original alpha
+    # of the source sheet before it is returned.
+    original_alpha = flipped_sheet.get_alpha()
+    flipped_sheet.set_alpha(255)
+
+    ordered_sheet = create_blank_surface(flipped_sheet.get_width(),
+                                         flipped_sheet.get_height())
     num_of_frames = ordered_sheet.get_width() / frame_width
 
     for frame_index in range(0, num_of_frames):
@@ -69,7 +76,23 @@ def order_flipped_sprite_sheet(flipped_sheet, frame_width):
                          frame_width, flipped_sheet.get_height())
         ordered_sheet.blit(flipped_sheet, (x, 0), copy_area)
 
+    ordered_sheet.set_alpha(original_alpha)
     return ordered_sheet
+
+
+def create_blank_surface(width, height):
+    """Return a completely transparent Surface of the given dimensions.
+
+    Args:
+        width (int): The width of the Surface in pixels.
+        height (int): The height of the Surface in pixels.
+    """
+    blank_surf = Surface((width, height))
+    blank_surf.fill(Color('magenta'))
+    blank_surf.set_colorkey(Color('magenta'))
+    blank_surf.convert()
+    blank_surf.set_alpha(255)
+    return blank_surf
 
 
 class Axis(IntEnum):
