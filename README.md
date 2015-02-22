@@ -1,10 +1,10 @@
-GameHappy
+![GameHappy Logo](Images/Logo.png)
 ==========
 A flexible game engine for PyGame projects.
 
 ## Features
-* Wrapper classes that make handling graphics and audio within game
-  engines unified and non-trivial.
+* Wrapper classes that make handling graphics and audio within games
+  unified and non-trivial.
 * Quick and easy resource management to make sure that no file is
   loaded twice.
 * Component-based Entity system allows game objects to possess any
@@ -23,6 +23,6 @@ Installation setup will be out sometime in the future.
 
 ## How to Contribute
 This is an ongoing project with the potential for extended capabilities
-past what was originally envisioned. Bug fixes, refactoring, and
+beyond what was originally envisioned. Bug fixes, refactoring, and
 extending features and classes are all welcome - just send us your
 modified branch in a pull request and it will be considered.
