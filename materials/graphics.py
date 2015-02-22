@@ -409,6 +409,23 @@ class Animation(Graphic):
             self._image = order_flipped_sprite_sheet(self._image,
                                                      self.get_width())
 
+    def magnify(self, zoom):
+        """Enlarge or shrink the image using an equal scale for the
+        width and height.
+
+        Args:
+            zoom (float): The amount used to multiply the image's
+                dimensions. For example, passing a value of 2 when the
+                image's dimensions are 24x24 will enlarge the image to
+                48x48. Passing 0.5 will shrink it to 12x12.
+        """
+        magnified_image = pygame.transform.scale(self._image,
+            # The width of the entire sprite sheet must be magnified.
+            (int(round(self.get_width() * zoom * self.num_of_frames())),
+             int(round(self.get_height() * zoom))))
+        self._image = magnified_image
+        self._update_rect_dimensions()
+
     def resize(self, new_width, new_height):
         """Stretch and/or shrink the image to fit new dimensions.
 
