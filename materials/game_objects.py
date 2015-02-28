@@ -37,6 +37,7 @@ class Entity(Sprite):
                 screen.
             *components: The Component objects that make up this Entity.
         """
+        Sprite.__init__(self)
         self.x = x
         self.y = y
         self.components = []
